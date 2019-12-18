@@ -2,8 +2,9 @@ version: '3.4'
 services:
   prometheus:
     image: prom/prometheus
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    configs:
+      - source: prometheus.yml
+        target: /etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"   
   grafana:
@@ -22,7 +23,7 @@ services:
     container_name: file-handler
     hostname: "file-handler"
     ports: 
-      - 3401:3401    
+      - 3401:3401 
   rabbit:
     image: "rabbitmq:3-management-alpine"
     hostname: "rabbit"
@@ -36,12 +37,11 @@ services:
       - "15671:15672"
       - "5671:5672"
     volumes: 
-      - rabbit-data:/var/lib/rabbitmq/mnesia
+      - rabbit-data:/var/lib/rabbitmq/mnesia          
 
 volumes:
   grafana-data:  
-
-# networks:
-#   default:
-#     external:
-#       name: prom-demo
+  rabbit-data:
+configs:
+  prometheus.yml:
+    external: true

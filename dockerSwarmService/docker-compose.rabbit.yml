@@ -19,7 +19,7 @@ services:
 volumes:  
   rabbit-data:
 
-# networks:
-#   default:
-#     external:
-#       name: prom-demo
+networks:
+  default:
+    external:
+      name: prom-demo
