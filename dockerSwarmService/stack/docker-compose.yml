@@ -1,12 +1,23 @@
 version: '3.4'
 services:
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus 
+    volumes: 
+      - prometheus-data:/prometheus/data
     configs:
       - source: prometheus.yml
         target: /etc/prometheus/prometheus.yml
     ports:
-      - "9090:9090"   
+      - "9090:9090"
+  alertmanager:
+    image: "prom/alertmanager:v0.15.0"
+    configs:
+      - source: alertmanager.yml
+        target: /etc/alertmanager/alertmanager.yml
+    ports:
+      - 9093:9093
+    volumes:
+      - alertmanager-data:/alertmanager
   grafana:
     image: grafana/grafana    
     volumes: 

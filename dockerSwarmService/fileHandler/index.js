@@ -7,6 +7,9 @@ const path = require("path")
 const express = require("express");
 const app = express();
 const client = require('prom-client');
+const promBundle = require("express-prom-bundle");
+const metricsMiddleware = promBundle({includeMethod: true});
+app.use(metricsMiddleware);
 
 function initializeMetricsServer(port) {
 
