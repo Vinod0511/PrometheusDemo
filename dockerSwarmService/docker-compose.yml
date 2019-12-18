@@ -1,0 +1,35 @@
+version: '3.4'
+services:
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"   
+  # grafana:
+  #   image: grafana/grafana    
+  #   volumes: 
+  #     - grafana-data:/var/lib/grafana
+  #   ports:
+  #     - "3000:3000"
+  file-handler: 
+    build:  
+      context: .
+      dockerfile: ./fileHandler/Dockerfile
+    environment:    
+      - NODE_ENV=production
+      - port=5672
+      - adminPort=15672
+      - hostname=rabbit 
+    container_name: file-handler
+    hostname: "file-handler"
+    ports: 
+      - 3401:3401    
+
+volumes:
+  grafana-data:  
+
+# networks:
+#   default:
+#     external:
+#       name: prom-demo

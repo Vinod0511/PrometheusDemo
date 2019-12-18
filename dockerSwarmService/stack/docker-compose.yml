@@ -1,0 +1,47 @@
+version: '3.4'
+services:
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"   
+  grafana:
+    image: grafana/grafana    
+    volumes: 
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+  file-handler: 
+    image: dockerswarmservice_file-handler:latest
+    environment:    
+      - NODE_ENV=production
+      - port=5672
+      - adminPort=15672
+      - hostname=rabbit 
+    container_name: file-handler
+    hostname: "file-handler"
+    ports: 
+      - 3401:3401    
+  rabbit:
+    image: "rabbitmq:3-management-alpine"
+    hostname: "rabbit"
+    container_name: rabbit2
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "dev_local"
+    ports:
+      - "15671:15672"
+      - "5671:5672"
+    volumes: 
+      - rabbit-data:/var/lib/rabbitmq/mnesia
+
+volumes:
+  grafana-data:  
+
+# networks:
+#   default:
+#     external:
+#       name: prom-demo

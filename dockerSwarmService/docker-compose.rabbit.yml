@@ -1,0 +1,25 @@
+version: '3.4'
+services:  
+  rabbit:
+    image: "rabbitmq:3-management-alpine"
+    hostname: "rabbit"
+    container_name: rabbit2
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "dev_local"
+    ports:
+      - "15671:15672"
+      - "5671:5672"
+    volumes: 
+      - rabbit-data:/var/lib/rabbitmq/mnesia     
+  
+
+volumes:  
+  rabbit-data:
+
+# networks:
+#   default:
+#     external:
+#       name: prom-demo

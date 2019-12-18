@@ -1,0 +1,8 @@
+default:       
+    port: 5672
+    adminPort: 15672
+    hostname: localhost
+    vhost: dev_local
+    preFetchLimit: 10
+    userName: rabbitmq
+    password: rabbitmq
