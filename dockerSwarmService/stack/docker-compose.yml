@@ -30,20 +30,19 @@ services:
       - NODE_ENV=production
       - port=5672
       - adminPort=15672
-      - hostname=rabbit 
-    container_name: file-handler
-    hostname: "file-handler"
+      - hostname=rabbit
     ports: 
       - 3401:3401 
   rabbit:
     image: "rabbitmq:3-management-alpine"
-    hostname: "rabbit"
-    container_name: rabbit2
     environment:
       RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
       RABBITMQ_DEFAULT_USER: "rabbitmq"
       RABBITMQ_DEFAULT_PASS: "rabbitmq"
       RABBITMQ_DEFAULT_VHOST: "dev_local"
+    # configs:
+    #   - source: rabbit_enabled_plugins
+    #     target: /etc/rabbitmq/enabled_plugins
     ports:
       - "15671:15672"
       - "5671:5672"
@@ -53,6 +52,12 @@ services:
 volumes:
   grafana-data:  
   rabbit-data:
+  prometheus-data:
+  alertmanager-data:
 configs:
   prometheus.yml:
     external: true
+  alertmanager.yml:
+    external: true
+  # rabbit_enabled_plugins:
+    # external: true
