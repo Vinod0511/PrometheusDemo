@@ -1,0 +1,3 @@
+nginx-prometheus-exporter -nginx.scrape-uri http://localhost:80/nginx_status
+curl -i "http://localhost/status/500?content=Hello"
+curl -i "http://localhost/status/500"
