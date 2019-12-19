@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "4.17.1",
+    "express-prom-bundle": "5.1.5",
     "is-null-or-empty": "0.0.1",
     "prom-client": "11.5.3"
   }

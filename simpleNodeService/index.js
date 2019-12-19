@@ -2,9 +2,12 @@ const express = require("express")
 const app = express();
 const isNullOrEmpty = require('is-null-or-empty')
 const client = require('prom-client');
+const promBundle = require("express-prom-bundle");
 const { contentCounter, responseCounter } = require("./metrics")
+const metricsMiddleware = promBundle({includeMethod: true});
 const logger = console;
 const port = 5010
+app.use(metricsMiddleware);
 app.get("/status/:statusCode", async (request, response) => {
     let statusCode = Number(request.params.statusCode);
     if (Number.isNaN(statusCode)) {
