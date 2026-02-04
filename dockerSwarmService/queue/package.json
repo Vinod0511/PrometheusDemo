@@ -9,7 +9,7 @@
   "author": "Vinod Iyer",
   "license": "ISC",
   "dependencies": {
-    "amqplib": "0.5.3",
+    "amqplib": "0.10.9",
     "axios": "0.30.2",
     "fs-extra": "8.1.0"
   },
